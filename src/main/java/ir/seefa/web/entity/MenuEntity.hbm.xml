@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="ir.seefa.web.entity.MenuEntity" table="Menu" schema="seefasitev1">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="menuTitle">
+            <column name="menuTitle" sql-type="varchar(100)" length="100"/>
+        </property>
+        <property name="menuCode">
+            <column name="menuCode" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="menuParentId">
+            <column name="menuParentId" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="menuUrl">
+            <column name="menuUrl" sql-type="varchar(400)" length="400" not-null="true"/>
+        </property>
+        <property name="active">
+            <column name="active" sql-type="byte" not-null="true"/>
+        </property>
+
+<!--        <property name="menuObject">-->
+<!--            <column name="menuObject" sql-type="json" not-null="true"/>-->
+<!--        </property>-->
+    </class>
+</hibernate-mapping>

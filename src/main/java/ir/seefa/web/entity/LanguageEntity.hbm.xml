@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="ir.seefa.web.entity.LanguageEntity" table="Language" schema="seefasitev1">
+        <id name="langId">
+            <column name="lang_id" sql-type="int(11)"/>
+        </id>
+        <property name="langTitle">
+            <column name="lang_title" sql-type="varchar(30)" length="30"/>
+        </property>
+    </class>
+</hibernate-mapping>

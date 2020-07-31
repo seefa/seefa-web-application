@@ -3,3 +3,5 @@
 *.log
 META-INF/
 *.iml
+out/
+target/

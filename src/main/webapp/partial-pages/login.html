@@ -1,0 +1,118 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-light text-black-50">
+            <img src="assets/images/educate.png" class="card-img-top" alt="سئو سیفا">
+            <div class="card-body">
+                <h5 class="card-title">وب سایت سیفا</h5>
+                <p class="card-text">اجرای برنامه های یکپارچه تحت وب هدف اصلی ماست</p>
+                <p class="card-text">همراه ما باشید</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card d-block" id="cardLogin">
+            <div class="card-header">
+                ورود به سیستم
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">اطلاعات کاربری خود را وارد کنید</h5>
+
+                <form id="loginForm" name="login" action="/seefasite/service/rest/v1/login">
+                    <div class="form-group">
+                        <label for="username">نام کاربری</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                               aria-describedby="usernameHelp">
+                        <small id="usernameHelp" class="form-text text-muted">نام کاربری شما حداقل ۴ کاراکتر لاتین و
+                            بودن حساسیت به حروف کوچک و بزرگ است
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">رمز عبور</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               aria-describedby="passwordHelp">
+                        <small id="passwordHelp" class="form-text text-muted">نام کاربری شما حداقل ۴ کاراکتر لاتین و
+                            بودن حساسیت به حروف کوچک و بزرگ است
+                        </small>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="remindMeHelp">
+                        <label class="form-check-label" for="remindMeHelp">من را به خاطر بسپار</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">ورود</button>
+                </form>
+
+            </div>
+        </div>
+
+
+
+        <div class="card d-none" id="cardProfile">
+            <div class="card-header">
+                پروفایل شما
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">کاربر گرامی،&nbsp;<span id="userFullName"></span>&nbsp;خوش آمدید</h5>
+
+                <form id="logoutForm" name="login" action="/seefasite/service/rest/v1/logout">
+                    <button type="submit" class="btn btn-primary">خروج</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#loginForm").submit(function (event) {
+        // Stop form from submitting normally
+        event.preventDefault();
+
+        var mainMenu = $('#mainMenu');
+        var cardLogin = $('#cardLogin');
+        var cardProfile = $('#cardProfile');
+        var userFullName = $('#userFullName');
+        var loginBtn = $('#loginBtn');
+        var logoutBtn = $('#logoutBtn');
+
+
+        var $form = $(this),
+            username = $form.find("input[name='username']").val(),
+            password = $form.find("input[name='password']").val(),
+            url = $form.attr("action");
+
+        var credential = {"username": username, "password": password};
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(credential),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            success: function (profile) {
+                cardLogin.addClass("d-none").removeClass("d-block");
+                loginBtn.addClass("d-none").removeClass("d-block");
+                cardProfile.removeClass("d-none").addClass("d-block");
+                logoutBtn.removeClass("d-none").addClass("d-block");
+                userFullName.html(profile["fullname"]);
+                mainMenu.empty();
+                profile["mainMenus"].forEach(function (item) {
+                    var menuItem = '<li class="nav-item"><a class="nav-link" href="#" id="' + item.code + '" onclick="routePage(\'' + item.code + '\',\'' + item.menuUrl + '\')">' + item.title + '</a></li>';
+                    mainMenu.append(menuItem);
+                });
+            }
+        });
+    });
+
+    $("#logoutForm").submit(function (event) {
+        // Stop form from submitting normally
+        event.preventDefault();
+
+        // Logout process
+        $.post("/seefasite/service/rest/v1/logout", function () {
+            window.location.href = "/seefasite";
+        }, "json");
+    });
+</script>

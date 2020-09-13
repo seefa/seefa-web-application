@@ -15,7 +15,7 @@
 <li>Repository Manager</li>
 <li>Sample SOAP Service</li>
 <li>Sample REST Service</li>
-<li>Log4j/li>
+<li>Log4j</li>
 </ul>
 
 <p>Client Side Project features:</p>

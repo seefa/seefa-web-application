@@ -4,20 +4,25 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <!--Oracle Datasource configuration-->
+        <!--        <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>-->
+        <!--        <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>-->
+        <!--        <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>-->
 
+        <!--MySQL Datasource configuration-->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <!-- Assume test is the database name -->
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/seefasitev1</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
         <property name="show_sql">true</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="hibernate.default_entity_mode">pojo</property>
 
-        <!-- <property name="connection.datasource">java:comp/env/jdbc/RSGames</property>-->
 
         <!-- DB schema will be updated if needed -->
         <!--    <property name="hibernate.hbm2ddl.auto">update</property>-->
+        <!-- <property name="connection.datasource">java:comp/env/jdbc/RSGames</property>-->
 
         <mapping class="ir.seefa.web.entity.ContentEntity"/>
         <mapping class="ir.seefa.web.entity.LanguageEntity"/>
